@@ -1,9 +1,8 @@
-body{min-width: 1080px;}
+body{background: #333333;}
 .clear{clear: both;}
 
-#leftside{position: relative; background: #FCFCFC;min-height: 600px;float: left;}
-
-#rightside{position: relative; background: #333333;color: #FFF; min-height: 600px;min-width: 800px; float: left;}
+#leftside{position: fixed;top: 0px;left: 0px; background: #FCFCFC;min-height: 600px;width:280px;}
+#rightside{position: relative;left:280px;color: #FFF; min-height: 600px;}
 
 #logo{position: absolute;left:20px;top: 20px;width:80px;height: 80px;background: #EEE;border-radius:40px;}
 
@@ -15,3 +14,22 @@ body{min-width: 1080px;}
 
 .login-stat{position: absolute;left:120px;top:50px;}
 .copyright{position: absolute;left: 20px;bottom: 50px;font-size: 12px;color: #555;}
+
+
+/* rightside main */
+.main{position:relative;width: 100%; padding:20px;color: #CCC;min-width:890px;}
+
+
+/* rightside zones style */
+.zone-item{float: left; padding: 10px;margin: 10px; border: 1px solid #555; width: 260px;text-align: center;height: 300px;}
+.zone-item:hover{border: 1px solid #AAA;}
+.zone-item ul{list-style: none;padding: 0;margin: 20px 0;}
+.zone-item ul li{line-height: 25px;}
+
+
+/* settings style */
+.zones-table{width: 100%; margin: 20px 0px; border-bottom:1px solid #555;border-top:1px solid #555;}
+.zones-table tr{border-top:1px solid #555;}
+.zones-table tr th{line-height: 40px;}
+.zones-table tr td{padding:10px 5px;line-height: 30px;vertical-align: top;}
+.create-form{padding:20px 10px;border: 1px solid #555;margin: 10px 0;}

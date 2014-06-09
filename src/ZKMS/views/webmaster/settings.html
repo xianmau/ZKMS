@@ -1,3 +1,54 @@
-<p>settings</p>
+<div class="main">
+	<h1>Zones Config</h1>
+	<a href="javascript:void(0);" onclick="SettingsShowCreateForm()"><span class="glyphicon glyphicon-plus-sign"></span> Create A New Zone</a>
 
-<p>这里可以管理一些配置，比如主要地址，重置提取器，什么的</p>
+	<div class="create-form" style="display:none;">
+		<form class="form-horizontal" role="form" action="javascript:void(0)">
+		  <div class="form-group">
+		    <label for="createzoneid" class="col-sm-2 control-label">zoneid</label>
+		    <div class="col-sm-10">
+		      <input type="text" class="form-control" id="createzoneid" placeholder="zone id">
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label for="createhosts" class="col-sm-2 control-label">hosts</label>
+		    <div class="col-sm-10">
+		      <input type="text" class="form-control" id="createhosts" placeholder="hosts">
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <div class="col-sm-offset-2 col-sm-10">
+		      <button type="button" class="btn btn-default btn-sm" onclick="SettingsCreateZone()"><span class="glyphicon glyphicon-plus"> Submit</button>
+		      <button type="button" class="btn btn-default btn-sm" onclick="SettingsCancel()"><span class="glyphicon glyphicon-remove"> Cancel</button>
+		    </div>
+		  </div>
+		</form>
+	</div>
+
+
+	<h3>Exist Zones</h3>
+	<table class="zones-table">
+		<tr>
+			<th style="width:200px;">Zone ID</th>
+			<th>Hosts</th>
+			<th style="width:200px;">Operation</th>
+		</tr>
+
+		{{range $key, $val := .zones}}
+		<tr>
+			<td>{{$key}}</td>
+			<td>
+				<input id="edithosts_{{$key}}" class="form-control" type="text" value="{{$val}}" />
+			</td>
+			<td>
+				<button type="button" class="btn btn-default btn-xs" onclick="SettingsEditZone('{{$key}}')"><span class="glyphicon glyphicon-pencil"> Eidt</a>
+				</button>
+				<button type="button" class="btn btn-default btn-xs" onclick="SettingsDeleteZone('{{$key}}')"><span class="glyphicon glyphicon-trash"> Delete</a>
+				</button>
+			</td>
+		</tr>
+		{{end}}
+
+	</table>
+	<p>PS: Edit zones' info above and, the hosts' ips must be written in a json string.</p>
+</div>

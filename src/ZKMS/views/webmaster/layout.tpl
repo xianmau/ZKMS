@@ -9,7 +9,7 @@
     <link href="/static/css/webmaster.css" rel="stylesheet">
 	</head>
 
-  <body>
+  <body style="overflow-y:auto;overflow-x:hidden;">
     <div id="leftside">
       <div id="logo"></div>
       {{if .IsLogin}}

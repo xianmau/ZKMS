@@ -23,6 +23,7 @@ func init() {
 
 	// 设置管理，包括
 	beego.Router("/webmaster/settings", &webmaster.SettingsController{})
-	// 设置主机，也就是管理数据库里的zones
-	//beego.Router("/webmaster/settings/hosts", &webmaster.SettingsController{}, "get:SetHost")
+	beego.Router("/webmaster/settings/CreateZone", &webmaster.SettingsController{}, "post:CreateZone")
+	beego.Router("/webmaster/settings/EditZone", &webmaster.SettingsController{}, "post:EditZone")
+	beego.Router("/webmaster/settings/DeleteZone", &webmaster.SettingsController{}, "post:DeleteZone")
 }
