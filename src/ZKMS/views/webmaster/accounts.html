@@ -1,42 +1,68 @@
 <div class="main">
-	<p>accounts</p>
+	<h1>Account Management</h1>
+	<a href="javascript:void(0);" onclick="AccountsShowCreateForm()"><span class="glyphicon glyphicon-plus-sign"></span> Create A New Account</a>
 
-<p>主要是添加删除修改</p>
-<p>主要是添加删除修改</p>
-<p>主要是添加删除修改</p>
-<p>主要是添加删除修改</p>
-<p>主要是添加删除修改</p>
-<p>主要是添加删除修改</p>
-<p>主要是添加删除修改</p>
-<p>主要是添加删除修改</p>
-<p>主要是添加删除修改</p>
-<p>主要是添加删除修改</p>
-<p>主要是添加删除修改</p>
-<p>主要是添加删除修改</p>
-<p>主要是添加删除修改</p>
-<p>主要是添加删除修改</p>
-<p>主要是添加删除修改</p>
-<p>主要是添加删除修改</p>
-<p>主要是添加删除修改</p>
-<p>主要是添加删除修改</p>
-<p>主要是添加删除修改</p>
-<p>主要是添加删除修改</p>
-<p>主要是添加删除修改</p>
-<p>主要是添加删除修改</p>
-<p>主要是添加删除修改</p>
-<p>主要是添加删除修改</p>
-<p>主要是添加删除修改</p>
-<p>主要是添加删除修改</p>
-<p>主要是添加删除修改</p>
-<p>主要是添加删除修改</p>
-<p>主要是添加删除修改</p>
-<p>主要是添加删除修改</p>
-<p>主要是添加删除修改</p>
-<p>主要是添加删除修改</p>
-<p>主要是添加删除修改</p>
-<p>主要是添加删除修改</p>
-<p>主要是添加删除修改</p>
-<p>主要是添加删除修改</p>
-<p>主要是添加删除修改</p>
-<p>主要是添加删除修改</p>
+	<div class="create-form" style="display:none;">
+		<form class="form-horizontal" role="form" action="javascript:void(0)">
+
+		  <div class="form-group">
+		    <label for="createname" class="col-sm-2 control-label">name</label>
+		    <div class="col-sm-10">
+		      <input type="text" class="form-control" id="createname" placeholder="name">
+		    </div>
+		  </div>
+
+		  <div class="form-group">
+		    <label for="createpassword" class="col-sm-2 control-label">password</label>
+		    <div class="col-sm-10">
+		      <input type="password" class="form-control" id="createpassword" placeholder="password">
+		    </div>
+		  </div>
+
+		  <div class="form-group">
+		    <label for="createremark" class="col-sm-2 control-label">remark</label>
+		    <div class="col-sm-10">
+		      <textarea class="form-control" id="createremark" placeholder="remark"></textarea>
+		    </div>
+		  </div>
+
+		  <div class="form-group">
+		    <div class="col-sm-offset-2 col-sm-10">
+		      <button type="button" class="btn btn-default btn-sm" onclick="AccountsCreate()"><span class="glyphicon glyphicon-plus"> Submit</button>
+		      <button type="button" class="btn btn-default btn-sm" onclick="AccountsCancel()"><span class="glyphicon glyphicon-remove"> Cancel</button>
+		    </div>
+		  </div>
+
+		</form>
+	</div>
+	
+	<h3>Account List</h3>
+	<table class="list-table">
+		<tr>
+			<th style="width:150px;">Name</th>
+			<th style="width:150px;">Password</th>
+			<th>Remark</th>
+			<th style="width:200px;">Operation</th>
+		</tr>
+
+		{{range $index, $val := .accounts}}
+		<tr>
+			<td>{{$val.Name}}</td>
+			<td>
+				<input id="editpassword_{{$val.Name}}" class="form-control" type="password" value="{{$val.Password}}" />
+			</td>
+			<td>
+				<textarea id="editremark_{{$val.Name}}" class="form-control" type="text">{{$val.Remark}}</textarea>
+			</td>
+			<td>
+				<button type="button" class="btn btn-default btn-xs" onclick="AccountsEdit('{{$val.Name}}')"><span class="glyphicon glyphicon-pencil"> Eidt</a>
+				</button>
+				<button type="button" class="btn btn-default btn-xs" onclick="AccountsDelete('{{$val.Name}}')"><span class="glyphicon glyphicon-trash"> Delete</a>
+				</button>
+			</td>
+		</tr>
+		{{end}}
+
+	</table>
+	<p>PS: Edit accounts' info above and, the password will not be changed if empty.</p>
 </div>

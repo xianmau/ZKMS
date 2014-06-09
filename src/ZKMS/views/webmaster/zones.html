@@ -1,47 +1,23 @@
 <div class="main">
 	<h1>Select a zone you want to view</h1>
 
+	{{range $index, $val := .zones}}
 	<div class="zone-item">
-		<h3><span class="glyphicon glyphicon-cloud"></span> zone1</h3>
+		<h3><a href="/webmaster/zones?zone={{$val.Id}}"><span class="glyphicon glyphicon-cloud"></span> {{$val.Id}}</a></h3>
 		<ul>
-			<li><span class="glyphicon glyphicon-th-large"></span> 192.168.1.1:2181</li>
-			<li><span class="glyphicon glyphicon-th-large"></span> 192.168.1.1:2181</li>
-			<li><span class="glyphicon glyphicon-th-large"></span> 192.168.1.1:2181</li>
-			<li><span class="glyphicon glyphicon-th-large"></span> 192.168.1.1:2181</li>
-			<li><span class="glyphicon glyphicon-th-large"></span> 192.168.1.1:2181</li>
+			{{range $j, $v:= $val.Ip}}
+				{{if ne $v ""}}
+				<li><span class="glyphicon glyphicon-th-large"></span> {{$v}}</li>
+				{{else}}
+				<li>-</li>
+				{{end}}
+			{{end}}
 		</ul>
-		<button type="button" class="btn btn-default btn">
+		<a href="/webmaster/zones?zone={{$val.Id}}" class="btn btn-default btn">
 			<span class="glyphicon glyphicon-circle-arrow-right"></span> View
-		</button>
+		</a>
 	</div>
-
-	<div class="zone-item">
-		<h3><span class="glyphicon glyphicon-cloud"></span> zone2</h3>
-		<ul>
-			<li><span class="glyphicon glyphicon-th-large"></span> 192.168.1.1:2181</li>
-			<li><span class="glyphicon glyphicon-th-large"></span> 192.168.1.1:2181</li>
-			<li><span class="glyphicon glyphicon-th-large"></span> 192.168.1.1:2181</li>
-			<li><span class="glyphicon glyphicon-th-large"></span> 192.168.1.1:2181</li>
-			<li><span class="glyphicon glyphicon-th-large"></span> 192.168.1.1:2181</li>
-		</ul>
-		<button type="button" class="btn btn-default btn">
-			<span class="glyphicon glyphicon-circle-arrow-right"></span> View
-		</button>
-	</div>
-
-	<div class="zone-item">
-		<h3><span class="glyphicon glyphicon-cloud"></span> zone3</h3>
-		<ul>
-			<li><span class="glyphicon glyphicon-th-large"></span> 192.168.1.1:2181</li>
-			<li><span class="glyphicon glyphicon-th-large"></span> 192.168.1.1:2181</li>
-			<li><span class="glyphicon glyphicon-th-large"></span> 192.168.1.1:2181</li>
-			<li><span class="glyphicon glyphicon-th-large"></span> 192.168.1.1:2181</li>
-			<li><span class="glyphicon glyphicon-th-large"></span> 192.168.1.1:2181</li>
-		</ul>
-		<button type="button" class="btn btn-default btn">
-			<span class="glyphicon glyphicon-circle-arrow-right"></span> View
-		</button>
-	</div>
+	{{end}}
 
 	<div class="clear"></div>
 </div>

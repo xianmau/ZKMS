@@ -17,6 +17,9 @@ func init() {
 
 	// 设置帐户
 	beego.Router("/webmaster/accounts", &webmaster.AccountsController{})
+	beego.Router("/webmaster/accounts/Create", &webmaster.AccountsController{}, "post:Create")
+	beego.Router("/webmaster/accounts/Edit", &webmaster.AccountsController{}, "post:Edit")
+	beego.Router("/webmaster/accounts/Delete", &webmaster.AccountsController{}, "post:Delete")
 
 	//
 	//beego.Router("/webmaster/accounts/create", &webmaster.AccountsController{}, "get:CreateAccount")

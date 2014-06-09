@@ -18,6 +18,11 @@ body{background: #333333;}
 
 /* rightside main */
 .main{position:relative;width: 100%; padding:20px;color: #CCC;min-width:890px;}
+.create-form{padding:20px 10px;border: 1px solid #555;margin: 10px 0;}
+.list-table{width: 100%; margin: 20px 0px; border-bottom:1px solid #555;border-top:1px solid #555;}
+.list-table tr{border-top:1px solid #555;}
+.list-table tr th{line-height: 40px;}
+.list-table tr td{padding:10px 5px;line-height: 30px;vertical-align: top;}
 
 
 /* rightside zones style */
@@ -27,9 +32,6 @@ body{background: #333333;}
 .zone-item ul li{line-height: 25px;}
 
 
-/* settings style */
-.zones-table{width: 100%; margin: 20px 0px; border-bottom:1px solid #555;border-top:1px solid #555;}
-.zones-table tr{border-top:1px solid #555;}
-.zones-table tr th{line-height: 40px;}
-.zones-table tr td{padding:10px 5px;line-height: 30px;vertical-align: top;}
-.create-form{padding:20px 10px;border: 1px solid #555;margin: 10px 0;}
+/* rightside settings style */
+
+/* rightside account style */

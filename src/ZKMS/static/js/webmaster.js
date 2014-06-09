@@ -106,3 +106,73 @@
  		dataType: 'text'
  	});
  }
+
+ /*----------------------------------
+  * Accounts scripts
+  *----------------------------------*/
+ function AccountsShowCreateForm() {
+ 	$('.create-form').toggle('slow');
+ }
+
+ function AccountsCancel() {
+ 	$('#createname').val("");
+ 	$('#createpassword').val("");
+ 	$('#createremark').val("");
+ 	$('.create-form').toggle('slow');
+ }
+
+ function AccountsCreate() {
+ 	var createname = $('#createname').val();
+ 	var createpassword = $('#createpassword').val();
+ 	var createremark = $('#createremark').val();
+
+ 	$.ajax({
+ 		type: 'POST',
+ 		url: '/webmaster/accounts/Create',
+ 		data: {
+ 			createname: createname,
+ 			createpassword: createpassword,
+ 			createremark: createremark
+ 		},
+ 		success: function(data) {
+ 			location.reload();
+ 		},
+ 		dataType: 'text'
+ 	});
+ }
+
+ function AccountsEdit(name) {
+ 	var editpassword = $('#editpassword_' + name).val();
+ 	var editremark = $('#editremark_' + name).val();
+
+ 	$.ajax({
+ 		type: 'POST',
+ 		url: '/webmaster/accounts/Edit',
+ 		data: {
+ 			editname: name,
+ 			editpassword: editpassword,
+ 			editremark: editremark
+ 		},
+ 		success: function(data) {
+ 			location.reload();
+ 		},
+ 		dataType: 'text'
+ 	});
+ }
+
+ function AccountsDelete(name) {
+ 	if (!confirm("Are your sure?")) {
+ 		return;
+ 	}
+ 	$.ajax({
+ 		type: 'POST',
+ 		url: '/webmaster/accounts/Delete',
+ 		data: {
+ 			deletename: name
+ 		},
+ 		success: function(data) {
+ 			location.reload();
+ 		},
+ 		dataType: 'text'
+ 	});
+ }
