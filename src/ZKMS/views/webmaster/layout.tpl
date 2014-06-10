@@ -6,6 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
     <link href="http://cdn.bootcss.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://cdn.bootcss.com/jstree/3.0.0/package/dist/themes/default/style.css" rel="stylesheet">
     <link href="/static/css/webmaster.css" rel="stylesheet">
 	</head>
 
@@ -39,5 +40,7 @@
     <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
     <script type="text/javascript" src="http://cdn.bootcss.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/static/js/webmaster.js"></script>
+    <script src="http://cdn.bootcss.com/jstree/3.0.0/jstree.min.js"></script>
+    <script src="/static/js/jstree.data.json"></script>
   </body>
 </html>

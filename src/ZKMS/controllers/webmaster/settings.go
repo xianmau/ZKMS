@@ -49,11 +49,13 @@ func (this *SettingsController) CreateZone() {
 	if err != nil {
 		log.Println(err)
 		this.Ctx.WriteString(err.Error())
+		return
 	}
 	_, err = db.Exec("insert into `tb_zone`(`Id`,`Ip`) values(?,?)", zoneid, hosts)
 	if err != nil {
 		log.Println(err)
 		this.Ctx.WriteString(err.Error())
+		return
 	}
 
 	this.Ctx.WriteString("")
@@ -66,6 +68,7 @@ func (this *SettingsController) EditZone() {
 	if err != nil {
 		log.Println(err)
 		this.Ctx.WriteString(err.Error())
+		return
 	}
 	_, err = db.Exec("update `tb_zone` set `Ip`=? where `Id`=?", hosts, zoneid)
 	if err != nil {
@@ -82,11 +85,13 @@ func (this *SettingsController) DeleteZone() {
 	if err != nil {
 		log.Println(err)
 		this.Ctx.WriteString(err.Error())
+		return
 	}
 	_, err = db.Exec("delete from `tb_zone` where `Id`=?", zoneid)
 	if err != nil {
 		log.Println(err)
 		this.Ctx.WriteString(err.Error())
+		return
 	}
 
 	this.Ctx.WriteString("")

@@ -35,3 +35,19 @@ body{background: #333333;}
 /* rightside settings style */
 
 /* rightside account style */
+
+/* rightside zktree */
+.zktree-left{padding-right: 350px;}
+.zktree-right{position: fixed;right: 20px;top: 20px;width:350px;}
+
+/* rewrite jstree triangle icon color */
+.jstree-default .jstree-icon{
+	background-image:url("/static/img/32px.png");
+}
+
+
+
+
+
+
+

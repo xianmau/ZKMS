@@ -14,6 +14,9 @@ func init() {
 	beego.Router("/webmaster/reports", &webmaster.ReportsController{})
 
 	beego.Router("/webmaster/zones", &webmaster.ZonesController{})
+	beego.Router("/webmaster/zktree", &webmaster.ZonesController{}, "get:ZkTree")
+	beego.Router("/webmaster/zktree/getdata", &webmaster.ZonesController{}, "get:GetData")
+	beego.Router("/webmaster/zktree/getchildren", &webmaster.ZonesController{}, "get:GetChildren")
 
 	// 设置帐户
 	beego.Router("/webmaster/accounts", &webmaster.AccountsController{})
