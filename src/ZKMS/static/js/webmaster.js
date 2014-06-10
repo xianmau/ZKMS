@@ -276,7 +276,7 @@
            var series1 = this.series[1];
            var series2 = this.series[2];
            setInterval(function() {
-             $.get('/webmaster/reports/brokerdetail/getlatestdata?zoneid=' + $('#currentzone').val() + '&brokerid=' + $('#currentbroker').val(), function(data) {
+             $.get('/webmaster/reports/brokerdetail/getlatestdata?zoneid=' + $('#zoneid').val() + '&brokerid=' + $('#brokerid').val(), function(data) {
                series0.addPoint(jQuery.parseJSON(data)[0], true, true);
                series1.addPoint(jQuery.parseJSON(data)[1], true, true);
                series2.addPoint(jQuery.parseJSON(data)[2], true, true);
@@ -304,11 +304,11 @@
      },
 
      title: {
-       text: 'Performance Evaluation of Broker: ' + $('#currentbroker').val()
+       text: 'Performance Evaluation of Broker: ' + $('#brokerid').val()
      },
 
      subtitle: {
-       text: 'from zone: ' + $('#currentzone').val()
+       text: 'from zone: ' + $('#zoneid').val()
      },
 
      yAxis: {

@@ -300,19 +300,19 @@ func persistToLocalStorageUsingTx(ymb *datastructure.YMB) {
 	err = tx.Commit()
 	checkErr(err, "")
 
-	//tx, err = db.Begin()
 	// store topic
-	//_, err = tx.Exec("update `tb_topic` set `Status`=false where `zoneid`=?", ymb.ZoneId)
-	//checkErr(err, "")
-	//for _, e := range ymb.Topics {
-	//	stmt, err = tx.Prepare("insert into `tb_topic`(`Name`,`AppId`,`ZoneId`,`BrokerId`,`ReplicaNum`,`Retention`,`Segments`,`Status`) values (?,?,?,?,?,?,?,?) on duplicate key update `BrokerId`=values(`BrokerId`),`ReplicaNum`=values(`ReplicaNum`),`Retention`=values(`Retention`),`Segments`=values(`Segments`),`Status`=true")
-	//	checkErr(err, "")
-	//	segments_json, _ := json.Marshal(e.Segments)
-	//	_, err = stmt.Exec(e.Name, e.AppId, ymb.ZoneId, GetBrokerId(ymb, e.Name, e.AppId), e.ReplicaNum, e.ReplicaNum, segments_json, true)
-	//	checkErr(err, "")
-	//}
-	//err = tx.Commit()
-	//checkErr(err, "")
+	tx, err = db.Begin()
+	_, err = tx.Exec("update `tb_topic` set `Status`=false where `zoneid`=?", ymb.ZoneId)
+	checkErr(err, "")
+	for _, e := range ymb.Topics {
+		stmt, err = tx.Prepare("insert into `tb_topic`(`Name`,`AppId`,`ZoneId`,`BrokerId`,`ReplicaNum`,`Retention`,`Segments`,`Status`) values (?,?,?,?,?,?,?,?) on duplicate key update `BrokerId`=values(`BrokerId`),`ReplicaNum`=values(`ReplicaNum`),`Retention`=values(`Retention`),`Segments`=values(`Segments`),`Status`=true")
+		checkErr(err, "")
+		segments_json, _ := json.Marshal(e.Segments)
+		_, err = stmt.Exec(e.Name, e.AppId, ymb.ZoneId, GetBrokerId(ymb, e.Name, e.AppId), e.ReplicaNum, e.ReplicaNum, segments_json, true)
+		checkErr(err, "")
+	}
+	err = tx.Commit()
+	checkErr(err, "")
 
 	defer db.Close()
 }

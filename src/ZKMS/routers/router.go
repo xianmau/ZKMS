@@ -7,27 +7,26 @@ import (
 )
 
 func init() {
-	//beego.Router("/", &controllers.MainController{})
+	beego.Router("/", &controllers.DashboardController{})
 
 	beego.Router("/webmaster", &webmaster.DashboardController{})
 
+	// 管理报表
 	beego.Router("/webmaster/reports", &webmaster.ReportsController{})
 	beego.Router("/webmaster/reports/brokerdetail", &webmaster.ReportsController{}, "get:BrokerDetail")
-	beego.Router("/webmaster/reports/brokerdetail/getlastestdata", &webmaster.ReportsController{}, "get:GetLatestBrokerData")
+	beego.Router("/webmaster/reports/brokerdetail/getlatestdata", &webmaster.ReportsController{}, "get:GetLatestBrokerData")
 
+	// 管理zones
 	beego.Router("/webmaster/zones", &webmaster.ZonesController{})
 	beego.Router("/webmaster/zktree", &webmaster.ZonesController{}, "get:ZkTree")
 	beego.Router("/webmaster/zktree/getdata", &webmaster.ZonesController{}, "get:GetData")
 	beego.Router("/webmaster/zktree/getchildren", &webmaster.ZonesController{}, "get:GetChildren")
 
-	// 设置帐户
+	// 帐户管理
 	beego.Router("/webmaster/accounts", &webmaster.AccountsController{})
 	beego.Router("/webmaster/accounts/Create", &webmaster.AccountsController{}, "post:Create")
 	beego.Router("/webmaster/accounts/Edit", &webmaster.AccountsController{}, "post:Edit")
 	beego.Router("/webmaster/accounts/Delete", &webmaster.AccountsController{}, "post:Delete")
-
-	//
-	//beego.Router("/webmaster/accounts/create", &webmaster.AccountsController{}, "get:CreateAccount")
 
 	// 设置管理，包括
 	beego.Router("/webmaster/settings", &webmaster.SettingsController{})

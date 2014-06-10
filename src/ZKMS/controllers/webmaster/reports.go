@@ -6,7 +6,6 @@ import (
 	"encoding/json"
 	"github.com/astaxie/beego"
 	"log"
-	"math/rand"
 	"strconv"
 	"time"
 )
@@ -115,8 +114,7 @@ func (this *ReportsController) GetLatestBrokerData() {
 
 	zoneid := this.GetString("zoneid")
 	brokerid := this.GetString("brokerid")
-	// 创建随机数对象
-	r := rand.New(rand.NewSource(time.Now().UnixNano()))
+
 	db, _ := sql.Open("mysql", beego.AppConfig.String("mysql_conn_str"))
 	defer db.Close()
 	rows, _ := db.Query("select `Timestamp`,`Cpu`,`Net`,`Disk` from `tb_broker_stat` where `BrokerId`=? and `ZoneId`=? and (`Timestamp`>=now() - interval 1 minute)", brokerid, zoneid)
@@ -135,12 +133,12 @@ func (this *ReportsController) GetLatestBrokerData() {
 		net, _ := strconv.ParseFloat(Net.String, 64)
 		disk, _ := strconv.ParseFloat(Disk.String, 64)
 		ret := "["
-		ret += "[" + strconv.FormatInt(timestamp.Unix()*1000, 10) + "," + strconv.FormatInt(int64((int(cpu*100)+r.Intn(100))%100), 10) + "],"
-		ret += "[" + strconv.FormatInt(timestamp.Unix()*1000, 10) + "," + strconv.FormatInt(int64((int(net*100)+r.Intn(100))%100), 10) + "],"
-		ret += "[" + strconv.FormatInt(timestamp.Unix()*1000, 10) + "," + strconv.FormatInt(int64((int(disk*100)+r.Intn(100))%100), 10) + "]"
+		ret += "[" + strconv.FormatInt(timestamp.Unix()*1000, 10) + "," + strconv.FormatInt(int64(cpu*100), 10) + "],"
+		ret += "[" + strconv.FormatInt(timestamp.Unix()*1000, 10) + "," + strconv.FormatInt(int64(net*100), 10) + "],"
+		ret += "[" + strconv.FormatInt(timestamp.Unix()*1000, 10) + "," + strconv.FormatInt(int64(disk*100), 10) + "]"
 		ret += "]"
 		this.Ctx.WriteString(ret)
 	}
-	this.Ctx.WriteString("")
+	this.Ctx.WriteString("[]")
 	return
 }

@@ -237,7 +237,7 @@ func work(zoneid string) {
 	}
 
 	// 每10秒更新一下数据
-	timer := time.Tick(10 * time.Second)
+	timer := time.Tick(30 * time.Second)
 	for _ = range timer {
 		// 生成broker数据
 		for _, bro := range broker_set {
