@@ -92,9 +92,11 @@ func (this *ZonesController) ZkTree() {
 			log.Println(err)
 			return
 		}
+		this.Data["cur_zoneid"] = Id
 		this.Data["cur_zone"] = Ip
 		return
 	}
+	this.Data["cur_zoneid"] = "Unknown Zone"
 	this.Data["cur_zone"] = "[]"
 }
 
