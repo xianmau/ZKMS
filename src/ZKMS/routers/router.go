@@ -12,6 +12,8 @@ func init() {
 	beego.Router("/webmaster", &webmaster.DashboardController{})
 
 	beego.Router("/webmaster/reports", &webmaster.ReportsController{})
+	beego.Router("/webmaster/reports/brokerdetail", &webmaster.ReportsController{}, "get:BrokerDetail")
+	beego.Router("/webmaster/reports/brokerdetail/getlastestdata", &webmaster.ReportsController{}, "get:GetLatestBrokerData")
 
 	beego.Router("/webmaster/zones", &webmaster.ZonesController{})
 	beego.Router("/webmaster/zktree", &webmaster.ZonesController{}, "get:ZkTree")

@@ -25,6 +25,7 @@ func (this *ZonesController) Get() {
 	// 获取zones列表
 	zones := []models.ZoneModel{}
 	db, err := sql.Open("mysql", beego.AppConfig.String("mysql_conn_str"))
+	defer db.Close()
 	if err != nil {
 		log.Println(err)
 		return
@@ -75,6 +76,7 @@ func (this *ZonesController) ZkTree() {
 	zone := this.GetString("zone")
 
 	db, err := sql.Open("mysql", beego.AppConfig.String("mysql_conn_str"))
+	defer db.Close()
 	if err != nil {
 		log.Println(err)
 		return

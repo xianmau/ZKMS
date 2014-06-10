@@ -20,11 +20,13 @@ func (this *AccountsController) Get() {
 	// 获取accounts列表
 	accounts := []models.AccountModel{}
 	db, err := sql.Open("mysql", beego.AppConfig.String("mysql_conn_str"))
+	defer db.Close()
 	if err != nil {
 		log.Println(err)
 		return
 	}
 	rows, err := db.Query("select * from `tb_account`")
+	defer db.Close()
 	if err != nil {
 		log.Println(err)
 		return
@@ -53,6 +55,7 @@ func (this *AccountsController) Create() {
 	createpassword := this.Input().Get("createpassword")
 	createremark := this.Input().Get("createremark")
 	db, err := sql.Open("mysql", beego.AppConfig.String("mysql_conn_str"))
+	defer db.Close()
 	if err != nil {
 		log.Println(err)
 		this.Ctx.WriteString(err.Error())
@@ -71,6 +74,7 @@ func (this *AccountsController) Edit() {
 	password := this.Input().Get("editpassword")
 	remark := this.Input().Get("editremark")
 	db, err := sql.Open("mysql", beego.AppConfig.String("mysql_conn_str"))
+	defer db.Close()
 	if err != nil {
 		log.Println(err)
 		this.Ctx.WriteString(err.Error())
@@ -87,6 +91,7 @@ func (this *AccountsController) Edit() {
 func (this *AccountsController) Delete() {
 	name := this.Input().Get("deletename")
 	db, err := sql.Open("mysql", beego.AppConfig.String("mysql_conn_str"))
+	defer db.Close()
 	if err != nil {
 		log.Println(err)
 		this.Ctx.WriteString(err.Error())

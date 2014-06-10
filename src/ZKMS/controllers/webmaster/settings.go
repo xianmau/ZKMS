@@ -19,6 +19,7 @@ func (this *SettingsController) Get() {
 	// 获取zones列表
 	zones := make(map[string]string)
 	db, err := sql.Open("mysql", beego.AppConfig.String("mysql_conn_str"))
+	defer db.Close()
 	if err != nil {
 		log.Println(err)
 		return
@@ -46,6 +47,7 @@ func (this *SettingsController) CreateZone() {
 	zoneid := this.Input().Get("createzoneid")
 	hosts := this.Input().Get("createhosts")
 	db, err := sql.Open("mysql", beego.AppConfig.String("mysql_conn_str"))
+	defer db.Close()
 	if err != nil {
 		log.Println(err)
 		this.Ctx.WriteString(err.Error())
@@ -65,6 +67,7 @@ func (this *SettingsController) EditZone() {
 	zoneid := this.Input().Get("editzoneid")
 	hosts := this.Input().Get("edithosts")
 	db, err := sql.Open("mysql", beego.AppConfig.String("mysql_conn_str"))
+	defer db.Close()
 	if err != nil {
 		log.Println(err)
 		this.Ctx.WriteString(err.Error())
@@ -82,6 +85,7 @@ func (this *SettingsController) EditZone() {
 func (this *SettingsController) DeleteZone() {
 	zoneid := this.Input().Get("deletezoneid")
 	db, err := sql.Open("mysql", beego.AppConfig.String("mysql_conn_str"))
+	defer db.Close()
 	if err != nil {
 		log.Println(err)
 		this.Ctx.WriteString(err.Error())
