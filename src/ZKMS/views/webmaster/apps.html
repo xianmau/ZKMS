@@ -1,0 +1,35 @@
+<div class="main">
+	<a class="reports-backlink" href="javascript:void(0);" onclick="history.back(-1);"><i class="glyphicon glyphicon-circle-arrow-left"></i> Back</a>
+	<div class="change-zone">
+		<label>Change Zone:</label>
+		<select onchange="var url = this.options[this.selectedIndex].value; window.location.href=url;">
+			<option value="/webmaster/reports/apps?zoneid={{.zoneid}}">{{.zoneid}}</option>
+			{{range $index, $val := .zonelist}}
+			<option value="/webmaster/reports/apps?zoneid={{$val.Id}}">{{$val.Id}}</option>
+			{{end}}
+		</select>
+	</div>
+
+	<table class="table tablesorter">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>App Id</th>
+				<th>Key</th>
+				<th>Status</th>
+			</tr>
+		</thead>
+		<tbody>
+		{{range $index, $val := .applist}}
+			<tr>
+				<td class="op-data">
+					<a href="/webmaster/reports/topics?zoneid={{$.zoneid}}&appid={{$val.Id}}"><span class="glyphicon glyphicon-list"></span></a>
+				</td>
+				<td class="id-data">{{$val.Id}}</td>
+				<td class="addr-data">{{$val.Key}}</td>
+				<td class="status-data">{{$val.Status}}</td>
+			</tr>
+		{{end}}
+		</tbody>
+	</table>
+</div>

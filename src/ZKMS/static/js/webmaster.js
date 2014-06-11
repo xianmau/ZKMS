@@ -1,6 +1,4 @@
- /*----------------------------------
-  * Layout scripts
-  *----------------------------------*/
+ // 加载全局脚本
  $(function() {
    SetLayout();
    $(window).resize(function() {
@@ -9,7 +7,35 @@
    SetNavActive();
  });
 
- // set layout
+ // 按需加载脚本
+ $(function() {
+   var url = window.location.pathname;
+   var p = url.split("/")
+   for (var i = 0; i < p.length; i++) {
+     if (p[i].length == 0) p.splice(i, 1);
+   }
+   if (p.length == 2) {
+     if (p[1] == "zktree") {
+       ZonesSetDragDiv()
+       ZonesLoadZkTree();
+     }
+   } else if (p.length == 3) {
+     if (p[1] == "reports" && p[2] == "brokerdetail") {
+       ReportsLoadBrokerChart()
+     } else if (p[1] == "reports" && p[2] == "loggerdetail") {
+       ReportsLoadLoggerChart()
+     } else if (p[1] == "reports" && (p[2] == "brokers" || p[2] == "loggers")) {
+       ReportsDealFloatData()
+     } else if (p[1] == "reports" && p[2] == "topics") {
+       ReportsDealSegment()
+     }
+   }
+
+ });
+
+ /*----------------------------------
+  * Layout scripts
+  *----------------------------------*/
  function SetLayout() {
    var wh = $(window).height();
    var ww = $(window).width();
@@ -18,7 +44,6 @@
    $('#rightside').width(ww - 280);
  }
 
- // set nav active
  function SetNavActive() {
    var url = window.location.pathname;
    var p = url.split("/")
@@ -39,9 +64,6 @@
      }
    }
  }
-
-
-
  /*----------------------------------
   * Settings scripts
   *----------------------------------*/
@@ -181,19 +203,15 @@
  /*----------------------------------
   * Zones scripts
   *----------------------------------*/
- $(function() {
+ function ZonesSetDragDiv() {
+   // 设置结点信息层可拖曳
    $(".zktree-right").drag({
      handler: $('.dragdiv-title'),
      opacity: 0.7
    });
- });
+ }
 
-
-
- /*----------------------------------
-  * ZkTree scripts
-  *----------------------------------*/
- $(function() {
+ function ZonesLoadZkTree() {
    $('#zktree_div')
      .on('init.jstree', function() {})
      .on('select_node.jstree', function(e, data) {
@@ -250,16 +268,52 @@
        // 其它一些参数设置
        'plugins': ["sort"]
      });
- });
-
+ }
 
 
  /*----------------------------------
-  * broker detail scripts
+  * reports scripts
   *----------------------------------*/
+ function ReportsDealFloatData() {
+   $('.float-data').each(function(index) {
+     var data = $(this).text()
+     if (data == 0) {
+       $(this).html("--")
+     } else {
 
- // 图表生成
- $(function() {
+       $(this).html(Math.round((data * 100)) + "%")
+     }
+   })
+ }
+
+ function ReportsDealSegment() {
+   // 处理段数据
+   $('.segments-data').each(function() {
+     var data = $(this).text();
+     var o = jQuery.parseJSON(data);
+     data = "";
+     for (var i = 0; i < o.length; i++) {
+       var tmp = "<strong>" + o[i].last_confirm_entry + "</strong><br />";
+       tmp += "<ul>";
+       for (var j = 0; j < o[i].loggers.length; j++) {
+         tmp += "<li>" + o[i].loggers[j] + "</li>";
+       }
+       tmp += "</ul>";
+       data += tmp;
+     }
+     var s = '<span class="label label-info" data-toggle="popover" title data-html="true" data-content="' + data + '" data-original-title="Segments Details">Segments Details</span>';
+     $(this).html(s);
+   });
+   $('.segments-data .label').popover({
+     placement: 'left'
+   })
+   $('.segments-data .label').popover('hide');
+   $('.segments-data .label').click(function() {
+     $('.segments-data .label').not(this).popover('hide');
+   });
+ }
+
+ function ReportsLoadBrokerChart() {
    Highcharts.setOptions({
      global: {
        useUTC: true
@@ -349,5 +403,96 @@
        data: jQuery.parseJSON($('#diskData').val())
      }]
    });
+ }
 
- });
+ function ReportsLoadLoggerChart() {
+   Highcharts.setOptions({
+     global: {
+       useUTC: true
+     }
+   });
+
+   // Create the chart
+   $('#container').highcharts('StockChart', {
+     chart: {
+       events: {
+         load: function() {
+           // set up the updating of the chart each second
+           var series0 = this.series[0];
+           var series1 = this.series[1];
+           var series2 = this.series[2];
+           setInterval(function() {
+             $.get('/webmaster/reports/loggerdetail/getlatestdata?zoneid=' + $('#zoneid').val() + '&loggerid=' + $('#loggerid').val(), function(data) {
+               series0.addPoint(jQuery.parseJSON(data)[0], true, true);
+               series1.addPoint(jQuery.parseJSON(data)[1], true, true);
+               series2.addPoint(jQuery.parseJSON(data)[2], true, true);
+             });
+           }, 60000);
+         }
+       }
+     },
+
+     rangeSelector: {
+       buttons: [{
+         count: 30,
+         type: 'minute',
+         text: '30M'
+       }, {
+         count: 1,
+         type: 'hours',
+         text: '1H'
+       }, {
+         type: 'all',
+         text: 'All'
+       }],
+       inputEnabled: false,
+       selected: 0
+     },
+
+     title: {
+       text: 'Performance Evaluation of Logger: ' + $('#loggerid').val()
+     },
+
+     subtitle: {
+       text: 'from zone: ' + $('#zoneid').val()
+     },
+
+     yAxis: {
+       title: {
+         text: 'percentage (%)'
+       }
+     },
+
+     exporting: {
+       enabled: false
+     },
+
+     tooltip: {
+       shared: true
+     },
+
+     legend: {
+       enabled: true,
+       align: 'right',
+       backgroundColor: '#FCFFC5',
+       borderColor: 'black',
+       borderWidth: 0,
+       layout: 'vertical',
+       verticalAlign: 'top',
+       y: 0,
+       shadow: true,
+       floating: true
+     },
+
+     series: [{
+       name: 'Cpu Rate(%)',
+       data: jQuery.parseJSON($('#cpuData').val())
+     }, {
+       name: 'Net Rate(%)',
+       data: jQuery.parseJSON($('#netData').val())
+     }, {
+       name: 'Disk Rate(%)',
+       data: jQuery.parseJSON($('#diskData').val())
+     }]
+   });
+ }

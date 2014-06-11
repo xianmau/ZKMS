@@ -24,6 +24,27 @@ body{background: #333333;}
 .list-table tr td{padding:10px 5px;line-height: 30px;vertical-align: top;}
 
 
+
+
+/* rightside reports style */
+.reports-backlink{position: relative;font-size: 14px;color: #EEE;font-weight: bold;}
+.change-zone{position: absolute; top: 20px; right: 20px;font-size: 14px;}
+.change-zone label{color:#666;}
+.change-zone select{padding: 2px 10px;color: #555;font-size: 14px;font-weight: bold;}
+.topic-filter{margin:10px 8px;}
+.topic-filter label{color:#666;}
+.topic-filter select{padding: 2px 10px;color: #555;font-size: 14px;font-weight: bold;}
+
+.id-data, .status-data{}
+.float-data{background: #202020;width: 80px;}
+.addr-data .label{margin: 0 15px 0 0;cursor: pointer;}
+.op-data {width: 80px;}
+.op-data a{margin: 0 10px 0 0;}
+.segments-data{color: #555;}
+.segments-data ul{margin: 0;padding: 0;}
+.segments-data li{color: green;list-style: none;padding: 2px 5px;}
+
+
 /* rightside zones style */
 .zone-item{float: left; padding: 10px;margin: 10px; border: 1px solid #555; width: 260px;text-align: center;height: 300px;}
 .zone-item:hover{border: 1px solid #AAA;}
@@ -31,12 +52,16 @@ body{background: #333333;}
 .zone-item ul li{line-height: 25px;}
 
 
-/* rightside settings style */
-
-
 
 
 /* rightside account style */
+
+
+
+
+
+/* rightside settings style */
+
 
 
 

@@ -1,0 +1,57 @@
+<div class="main">
+	<a class="reports-backlink" href="javascript:void(0);" onclick="history.back(-1);"><i class="glyphicon glyphicon-circle-arrow-left"></i> Back</a>
+	<div class="change-zone">
+		<label>Change Zone:</label>
+		<select onchange="var url = this.options[this.selectedIndex].value; window.location.href=url;">
+			<option value="/webmaster/reports/topics?zoneid={{.zoneid}}">{{.zoneid}}</option>
+			{{range $index, $val := .zonelist}}
+			<option value="/webmaster/reports/topics?zoneid={{$val.Id}}">{{$val.Id}}</option>
+			{{end}}
+		</select>
+	</div>
+
+	<div class="topic-filter">
+		<label>Broker</label>
+		<select onchange="var url = this.options[this.selectedIndex].value; window.location.href=url;">
+			<option value="/webmaster/reports/topics?zoneid={{.zoneid}}&brokerid={{.brokerid}}">{{.brokerid}}</option>
+			{{range $index, $val := .brokerlist}}
+			<option value="/webmaster/reports/topics?zoneid={{$.zoneid}}&brokerid={{$val}}">{{$val}}</option>
+			{{end}}
+		</select>
+
+		<label>Logger</label>
+		<select onchange="var url = this.options[this.selectedIndex].value; window.location.href=url;">
+			<option value="/webmaster/reports/topics?zoneid={{.zoneid}}&appid={{.appid}}">{{.appid}}</option>
+			{{range $index, $val := .applist}}
+			<option value="/webmaster/reports/topics?zoneid={{$.zoneid}}&appid={{$val}}">{{$val}}</option>
+			{{end}}
+		</select>
+	</div>
+
+	<table class="table tablesorter">
+		<thead>
+			<tr>
+				<th style="width:150px;">Name</th>
+				<th style="width:150px;">App Id</th>
+				<th style="width:150px;">Broker Id</th>
+				<th style="width:150px;">Replica Number</th>
+				<th style="width:150px;">Retention</th>
+				<th style="width:150px;">Status</th>
+				<th>Segments</th>
+			</tr>
+		</thead>
+		<tbody>
+		{{range $key, $val := .topiclist}}
+			<tr>
+				<td class="id-data">{{$val.Name}}</td>
+				<td class="id-data">{{$val.AppId}}</td>
+				<td class="id-data">{{$val.BrokerId}}</td>
+				<td class="int-data">{{$val.ReplicaNum}}</td>
+				<td class="int-data">{{$val.ReplicaNum}}</td>
+				<td class="status-data">{{$val.Status}}</td>
+				<td class="segments-data">{{$val.Segments}}</td>
+			</tr>
+		{{end}}
+		</tbody>
+	</table>
+</div>

@@ -1,0 +1,42 @@
+<div class="main">
+	<a class="reports-backlink" href="javascript:void(0);" onclick="history.back(-1);"><i class="glyphicon glyphicon-circle-arrow-left"></i> Back</a>
+	<div class="change-zone">
+		<label>Change Zone:</label>
+		<select onchange="var url = this.options[this.selectedIndex].value; window.location.href=url;">
+			<option value="/webmaster/reports/brokers?zoneid={{.zoneid}}">{{.zoneid}}</option>
+			{{range $index, $val := .zonelist}}
+			<option value="/webmaster/reports/brokers?zoneid={{$val.Id}}">{{$val.Id}}</option>
+			{{end}}
+		</select>
+	</div>
+
+	<table class="table tablesorter">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>Broker Id</th>
+				<th>Addrs</th>
+				<th>Status</th>
+				<th>CPU</th>
+				<th>NET</th>
+				<th>DISK</th>
+			</tr>
+		</thead>
+		<tbody>
+		{{range $index, $val := .brokerlist}}
+			<tr>
+				<td class="op-data">
+					<a href="/webmaster/reports/brokerdetail?zoneid={{$.zoneid}}&brokerid={{$val.Id}}"><span class="glyphicon glyphicon-stats"></span></a>
+					<a href="/webmaster/reports/topics?zoneid={{$.zoneid}}&brokerid={{$val.Id}}"><span class="glyphicon glyphicon-list"></span></a>
+				</td>
+				<td class="id-data">{{$val.Id}}</td>
+				<td class="addr-data">{{$val.Addrs}}</td>
+				<td class="status-data">{{$val.Status}}</td>
+				<td class="float-data">{{$val.Cpu}}</td>
+				<td class="float-data">{{$val.Net}}</td>
+				<td class="float-data">{{$val.Disk}}</td>
+			</tr>
+		{{end}}
+		</tbody>
+	</table>
+</div>

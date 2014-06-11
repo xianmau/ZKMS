@@ -103,7 +103,7 @@ func extracting(host []string) error {
 	extractingBrokers(conn, &ymb)
 	extractingLoggers(conn, &ymb)
 	extractingTopics(conn, &ymb)
-	log.Println(ymb.Apps)
+
 	t2 := time.Now()
 	log.Printf("Extract data from [%s] using %v\n", ymb.ZoneId, t2.Sub(t1))
 

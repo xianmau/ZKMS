@@ -1,0 +1,18 @@
+<div class="main">
+	<a class="reports-backlink" href="javascript:void(0);" onclick="history.back(-1);"><i class="glyphicon glyphicon-circle-arrow-left"></i> Back</a>
+	<h4>
+		Current zone: 
+		<span class="text-primary"><strong>{{.zoneid}}</strong></span>
+		Current logger: 
+		<span class="text-primary"><strong>{{.loggerid}}</strong></span>
+	</h4>
+	<br /><br />
+	<div id="container" style="width:100%; height:600px;"></div>
+</div>
+
+<!--绑定一些数据用于js调用-->
+<input id="zoneid" type="hidden" value="{{.zoneid}}">
+<input id="loggerid" type="hidden" value="{{.loggerid}}">
+<input id="cpuData" type="hidden" value="{{.cpuData}}">
+<input id="netData" type="hidden" value="{{.netData}}">
+<input id="diskData" type="hidden" value="{{.diskData}}">

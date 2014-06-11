@@ -7,8 +7,7 @@
 
     <link href="http://cdn.bootcss.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="http://cdn.bootcss.com/jstree/3.0.0/package/dist/themes/default/style.css" rel="stylesheet">
-    <link href="/static/css/nanoscroller.css" rel="stylesheet">
-
+    <link href="http://cdn.bootcss.com/jquery.nanoscroller/0.8.0/nanoscroller.min.css" rel="stylesheet">
 
     <link href="/static/css/webmaster.css" rel="stylesheet">
 	</head>
@@ -44,8 +43,7 @@
     <script src="http://cdn.bootcss.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <script src="http://cdn.bootcss.com/jstree/3.0.0/jstree.min.js"></script>
     <script src="/static/js/jstree.data.json"></script>
-    <script src="/static/js/jquery.nanoscroller.js"></script>
-    
+    <script src="http://cdn.bootcss.com/jquery.nanoscroller/0.8.0/jquery.nanoscroller.min.js"></script>
     <script src="http://code.highcharts.com/stock/highstock.js"></script>
     <script src="http://code.highcharts.com/stock/modules/exporting.js"></script>
 

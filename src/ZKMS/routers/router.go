@@ -7,7 +7,7 @@ import (
 )
 
 func init() {
-	beego.Router("/", &controllers.DashboardController{})
+	beego.Router("/", &webmaster.DashboardController{})
 
 	beego.Router("/webmaster", &webmaster.DashboardController{})
 
@@ -15,6 +15,13 @@ func init() {
 	beego.Router("/webmaster/reports", &webmaster.ReportsController{})
 	beego.Router("/webmaster/reports/brokerdetail", &webmaster.ReportsController{}, "get:BrokerDetail")
 	beego.Router("/webmaster/reports/brokerdetail/getlatestdata", &webmaster.ReportsController{}, "get:GetLatestBrokerData")
+	beego.Router("/webmaster/reports/loggerdetail", &webmaster.ReportsController{}, "get:LoggerDetail")
+	beego.Router("/webmaster/reports/loggerdetail/getlatestdata", &webmaster.ReportsController{}, "get:GetLatestLoggerData")
+
+	beego.Router("/webmaster/reports/brokers", &webmaster.ReportsController{}, "get:Brokers")
+	beego.Router("/webmaster/reports/loggers", &webmaster.ReportsController{}, "get:Loggers")
+	beego.Router("/webmaster/reports/apps", &webmaster.ReportsController{}, "get:Apps")
+	beego.Router("/webmaster/reports/topics", &webmaster.ReportsController{}, "get:Topics")
 
 	// 管理zones
 	beego.Router("/webmaster/zones", &webmaster.ZonesController{})
