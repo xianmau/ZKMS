@@ -1,14 +1,65 @@
 <div class="main">
-<div class="zktree-tree">
-	
-</div>
+	<a class="reports-backlink" href="javascript:void(0);" onclick="history.back(-1);"><i class="glyphicon glyphicon-circle-arrow-left"></i> Back</a>
+	<div class="current-zone">
+		<label>Current Zone:</label>
+		<select onchange="var url = this.options[this.selectedIndex].value; window.location.href=url;">
+			<option value="/webmaster/zktree?zone={{.cur_zoneid}}">{{.cur_zoneid}}</option>
+			{{range $index, $val := .zonelist}}
+			<option value="/webmaster/zktree?zone={{$val.Id}}">{{$val.Id}}</option>
+			{{end}}
+		</select>
+	</div>
 	<div class="zktree-left">
-		<h4 style="color:#FFF;">Current Zone: {{.cur_zoneid}}</h4>
+
 		<div id="zktree_div">		
 	</div>
 
 	<div class="zktree-right">
 		<h4 class="dragdiv-title">Data & Stat</h4>
+		<div class="zktree-node-op">
+			<a href="javascript:void(0);" onclick="ZonesLoadCreateForm()"><span class="glyphicon glyphicon-plus"></span>create</a>
+			<a href="javascript:void(0);" onclick="ZonesLoadUpdateForm()"><span class="glyphicon glyphicon-refresh"></span>update</a>
+			<a href="javascript:void(0);" onclick="ZonesDeleteNode()"><span class="glyphicon glyphicon-remove"></span>delete</a>
+		</div>
+		<div class="zktree-forms">
+			<form id="zktree-forms-create">
+				<table>
+					<tr>
+						<td style="text-align:right;"><label>Create Znode: </label></td>
+						<td><input id="zktree_forms_create_path" type="text" disabled="disabled" style="width:180px;height:25px;" /></td>
+					</tr>
+					<tr>
+						<td style="text-align:right;"><label>New Sub Znode Name: </label></td>
+						<td><input id="zktree_forms_create_name" type="text" style="width:180px;height:25px;" /></td>
+					</tr>
+					<tr>
+						<td style="text-align:right;"><label>New Sub Znode Data: </label></td>
+						<td><textarea id="zktree_forms_create_data" style="width:180px;height:50px;text-align:left;"></textarea></td>
+					</tr>
+					<tr>
+						<td style="text-align:right;"><button type="button" class="btn" onclick="ZonesCreateNode();">Create</button></td>
+						<td><button type="button" class="btn" onclick="ZonesCancel()">Cancel</button></td>
+					</tr>
+				</table>
+			</form>
+
+			<form id="zktree-forms-update">
+				<table>
+					<tr>
+						<td style="text-align:right;"><label>Update Znode: </label></td>
+						<td><input id="zktree_forms_update_path" type="text" disabled="disabled" style="width:180px;height:25px;" /></td>
+					</tr>
+					<tr>
+						<td style="text-align:right;"><label>New Sub Znode Data: </label></td>
+						<td><textarea id="zktree_forms_update_data" style="width:180px;height:50px;text-align:left;"></textarea></td>
+					</tr>
+					<tr>
+						<td style="text-align:right;"><button type="button" class="btn" onclick="ZonesUpdateNode();">Update</button></td>
+						<td><button type="button" class="btn" onclick="ZonesCancel()">Cancel</button></td>
+					</tr>
+				</table>
+			</form>
+		</div>
 		<div id="about" class="nano">
 			<div class="nano-content">
 				<div class="node_show"></div>
@@ -18,5 +69,6 @@
 
 	<div id="data_field">
 		<input id="cur_zone" type="hidden" value="{{.cur_zone}}" />
+		<input id="cur_node" type="hidden" value="" />
 	</div>
 </div>

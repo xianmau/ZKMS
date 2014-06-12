@@ -299,7 +299,7 @@ func (this *ReportsController) Brokers() {
 		zoneid = zonelist[0].Id
 	}
 
-	rows, _ = db.Query("select A.`Id`,A.`Addrs`,A.`Status`,B.`Cpu`,B.`Net`,B.`Disk` from `tb_broker` as A left join `tb_broker_stat` as B on A.`Id`=B.`BrokerId` and A.`ZoneId`=B.`ZoneId` and (B.`Timestamp`>=now() - interval 1 minute) where A.`ZoneId`=?", zoneid)
+	rows, _ = db.Query("select A.`Id`,A.`Addrs`,A.`Status`,B.`Cpu`,B.`Net`,B.`Disk` from `tb_broker` as A left join `tb_latest_broker_stat` as B on A.`Id`=B.`BrokerId` and A.`ZoneId`=B.`ZoneId` and (B.`Timestamp`>=now() - interval 1 minute) where A.`ZoneId`=?", zoneid)
 	for rows.Next() {
 		tmp := models.BrokerModel{}
 		var Cpu sql.NullString
@@ -327,7 +327,6 @@ func (this *ReportsController) Brokers() {
 }
 
 func (this *ReportsController) Loggers() {
-	t1 := time.Now()
 	this.Data["IsLogin"] = true
 	this.Data["LoginName"] = "xianmau"
 	this.Layout = "webmaster/layout.tpl"
@@ -362,7 +361,10 @@ func (this *ReportsController) Loggers() {
 		zoneid = zonelist[0].Id
 	}
 
-	rows, _ = db.Query("select A.`Id`,A.`Addr`,A.`BlkDev`,A.`Status`,B.`Cpu`,B.`Net`,B.`Disk` from `tb_logger` as A left join `tb_logger_stat` as B on A.`Id`=B.`LoggerId` and A.`ZoneId`=B.`ZoneId` and (B.`Timestamp`>=now() - interval 1 minute) where A.`ZoneId`=?", zoneid)
+	t1 := time.Now()
+	rows, _ = db.Query("select A.`Id`,A.`Addr`,A.`BlkDev`,A.`Status`,B.`Cpu`,B.`Net`,B.`Disk` from `tb_logger` as A left join `tb_latest_logger_stat` as B on A.`Id`=B.`LoggerId` and A.`ZoneId`=B.`ZoneId` and (B.`Timestamp`>=now() - interval 1 minute) where A.`ZoneId`=?", zoneid)
+	t2 := time.Now()
+	log.Printf("Load data from [%s] using %v\n", "broker", t2.Sub(t1))
 	for rows.Next() {
 		tmp := models.LoggerModel{}
 		var Cpu sql.NullString
@@ -387,8 +389,6 @@ func (this *ReportsController) Loggers() {
 	this.Data["zonelist"] = zonelist
 	this.Data["lastsync"] = time.Now().Format("2006-01-02 15:04")
 	this.Data["loggerlist"] = loggerlist
-	t2 := time.Now()
-	log.Printf("Load data from [%s] using %v\n", "broker", t2.Sub(t1))
 }
 
 func (this *ReportsController) Apps() {

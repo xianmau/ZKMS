@@ -25,6 +25,9 @@ func init() {
 
 	// 管理zones
 	beego.Router("/webmaster/zones", &webmaster.ZonesController{})
+	beego.Router("/webmaster/zones/CreateNode", &webmaster.ZonesController{}, "post:CreateNode")
+	beego.Router("/webmaster/zones/UpdateNode", &webmaster.ZonesController{}, "post:UpdateNode")
+	beego.Router("/webmaster/zones/DeleteNode", &webmaster.ZonesController{}, "post:DeleteNode")
 	beego.Router("/webmaster/zktree", &webmaster.ZonesController{}, "get:ZkTree")
 	beego.Router("/webmaster/zktree/getdata", &webmaster.ZonesController{}, "get:GetData")
 	beego.Router("/webmaster/zktree/getchildren", &webmaster.ZonesController{}, "get:GetChildren")

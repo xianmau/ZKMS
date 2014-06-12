@@ -203,6 +203,101 @@
  /*----------------------------------
   * Zones scripts
   *----------------------------------*/
+
+ function ZonesLoadCreateForm() {
+   var curNode = $('#cur_node').val();
+   //alert(curNode);
+   $('.zktree-forms').slideUp('fast');
+   $('#zktree-forms-update').hide();
+   $('#zktree-forms-create').show();
+   $('.zktree-forms').slideDown('slow');
+
+   $('#zktree_forms_create_path').val(curNode)
+
+ }
+
+ // TODO
+ function ZonesCreateNode() {
+   var curZone = $('#cur_zone').val();
+   var path = $('#zktree_forms_create_path').val();
+   var name = $('#zktree_forms_create_name').val();
+   var data = $('#zktree_forms_create_data').val();
+   //alert(path + name + data);
+   $.ajax({
+     type: 'POST',
+     url: '/webmaster/zones/CreateNode',
+     data: {
+       zone: curZone,
+       path: path + "/" + name,
+       data: data
+     },
+     success: function(data) {
+       location.reload();
+     },
+     dataType: 'text'
+   });
+ }
+
+ function ZonesLoadUpdateForm() {
+   var curNode = $('#cur_node').val();
+   //alert(curNode);
+   $('.zktree-forms').slideUp('fast');
+   $('#zktree-forms-create').hide();
+   $('#zktree-forms-update').show();
+   $('.zktree-forms').slideDown('slow');
+
+   $('#zktree_forms_update_path').val(curNode)
+ }
+
+ // TODO
+ function ZonesUpdateNode() {
+   var curZone = $('#cur_zone').val();
+   var path = $('#zktree_forms_update_path').val();
+   var data = $('#zktree_forms_update_data').val();
+   //alert(path + data);
+   $.ajax({
+     type: 'POST',
+     url: '/webmaster/zones/UpdateNode',
+     data: {
+       zone: curZone,
+       path: path,
+       data: data
+     },
+     success: function(data) {
+       location.reload();
+     },
+     dataType: 'text'
+   });
+ }
+
+
+ function ZonesCancel() {
+   $('.zktree-forms').slideUp('fast');
+ }
+
+ function ZonesDeleteNode() {
+   var curZone = $('#cur_zone').val();
+   var curNode = $('#cur_node').val();
+   if (!confirm("Are you sure?")) {
+     return;
+   }
+   //alert(curNode);
+   $.ajax({
+     type: 'POST',
+     url: '/webmaster/zones/DeleteNode',
+     data: {
+       zone: curZone,
+       path: curNode
+     },
+     success: function(data) {
+       location.reload();
+     },
+     dataType: 'text'
+   });
+ }
+
+
+
  function ZonesSetDragDiv() {
    // 设置结点信息层可拖曳
    $(".zktree-right").drag({
@@ -223,6 +318,28 @@
            'zoneid': $('#cur_zone').val(),
            'znode': current_node
          },
+         complete: function(XHR, status) {
+           if (status == "parsererror") {
+             var code = "";
+             code += '<h4>PATH: </h4>';
+             code += '<p class="znodeinfo-path">' + current_node + '</p>';
+             code += '<h4>DATA: </h4>';
+             code += '<p class="znodeinfo-rawdata">';
+             code += XHR.responseText;
+             code += '</p>';
+             code += '';
+             code += '';
+             $('#cur_node').val(current_node)
+
+             // form field
+             $('#zktree_forms_create_path').val(current_node)
+             $('#zktree_forms_update_path').val(current_node)
+
+             $('.node_show').html(code);
+             $(".nano").nanoScroller();
+           }
+           //alert(XHR.responseText + status);
+         },
          success: function(data) {
            var code = "";
            var o = data;
@@ -237,6 +354,11 @@
            code += '</p>';
            code += '';
            code += '';
+           $('#cur_node').val(current_node)
+
+           // form field
+           $('#zktree_forms_create_path').val(current_node)
+           $('#zktree_forms_update_path').val(current_node)
 
            $('.node_show').html(code);
            $(".nano").nanoScroller();

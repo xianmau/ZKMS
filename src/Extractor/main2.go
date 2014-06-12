@@ -279,6 +279,16 @@ func persistToLocalStorageUsingTx(ymb *datastructure.YMB) {
 		_, err = stmt.Exec(e.Id, ymb.ZoneId, e.Stat.Cpu, e.Stat.Net, e.Stat.Disk)
 		checkErr(err, "")
 	}
+	// store latest broker_stat
+	stmt, err = tx.Prepare("delete from `tb_latest_broker_stat` where `ZoneId`=?")
+	checkErr(err, "")
+	_, err = stmt.Exec(ymb.ZoneId)
+	for _, e := range ymb.Brokers {
+		stmt, err = tx.Prepare("insert into `tb_latest_broker_stat`(`BrokerId`,`ZoneId`,`CPU`,`Net`,`Disk`) values (?,?,?,?,?)")
+		checkErr(err, "")
+		_, err = stmt.Exec(e.Id, ymb.ZoneId, e.Stat.Cpu, e.Stat.Net, e.Stat.Disk)
+		checkErr(err, "")
+	}
 
 	// store logger
 	_, err = tx.Exec("update `tb_logger` set `Status`=false where `zoneid`=?", ymb.ZoneId)
@@ -297,6 +307,18 @@ func persistToLocalStorageUsingTx(ymb *datastructure.YMB) {
 		_, err = stmt.Exec(e.Id, ymb.ZoneId, e.Stat.Cpu, e.Stat.Net, e.Stat.Disk)
 		checkErr(err, "")
 	}
+
+	// store latest logger_stat
+	stmt, err = tx.Prepare("delete from `tb_latest_logger_stat` where `ZoneId`=?")
+	checkErr(err, "")
+	_, err = stmt.Exec(ymb.ZoneId)
+	for _, e := range ymb.Loggers {
+		stmt, err = tx.Prepare("insert into `tb_latest_logger_stat`(`LoggerId`,`ZoneId`,`CPU`,`Net`,`Disk`) values (?,?,?,?,?)")
+		checkErr(err, "")
+		_, err = stmt.Exec(e.Id, ymb.ZoneId, e.Stat.Cpu, e.Stat.Net, e.Stat.Disk)
+		checkErr(err, "")
+	}
+
 	err = tx.Commit()
 	checkErr(err, "")
 
