@@ -11,6 +11,7 @@ func init() {
 
 	beego.Router("/webmaster", &webmaster.DashboardController{})
 	beego.Router("/webmaster/dashboard/SetExtractor", &webmaster.DashboardController{}, "post:SetExtractor")
+	beego.Router("/webmaster/dashboard/ExecuteSql", &webmaster.DashboardController{}, "post:ExecuteSql")
 
 	// 管理报表
 	beego.Router("/webmaster/reports", &webmaster.ReportsController{})

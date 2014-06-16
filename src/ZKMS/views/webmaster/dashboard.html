@@ -35,19 +35,19 @@
 		<p class="title">Database Tools</p>
 		<div class="info">
 			<h5>Truncate Operation</h5>
-			<button class="btn btn-danger" type="button" onclick="Truncate('all')">All Tables</button>
-			<button class="btn btn-warning" type="button" onclick="Truncate('broker')">Broker Table</button>
-			<button class="btn btn-warning" type="button" onclick="Truncate('logger')">Logger Table</button>
-			<button class="btn btn-warning" type="button" onclick="Truncate('app')">App Table</button>
-			<button class="btn btn-warning" type="button" onclick="Truncate('topic')">Topic Table</button>
-			<button class="btn btn-warning" type="button" onclick="Truncate('zone')">Zone Table</button>
+			<button class="btn btn-danger" type="button" onclick="DashboardDbTruncate('all')">All Tables</button>
+			<button class="btn btn-warning" type="button" onclick="DashboardDbTruncate('broker')">Broker Table</button>
+			<button class="btn btn-warning" type="button" onclick="DashboardDbTruncate('logger')">Logger Table</button>
+			<button class="btn btn-warning" type="button" onclick="DashboardDbTruncate('app')">App Table</button>
+			<button class="btn btn-warning" type="button" onclick="DashboardDbTruncate('topic')">Topic Table</button>
+			<button class="btn btn-warning" type="button" onclick="DashboardDbTruncate('zone')">Zone Table</button>
 			<h5>Execute SQL</h5>
-			<form action="/webmaster/danger/execsql" method="post">
-				<textarea class="form-control" name="sql" placeholder="Sql Statement" ></textarea>
-				<br />
-				<button type="submit" class="btn btn-danger btn-sm">Run</button>
-				<button type="reset" class="btn btn-primary btn-sm">Reset</button>
-			</form>
+
+			<textarea id="sqlstr" class="form-control" name="sql" placeholder="Sql Statement" ></textarea>
+			<br />
+			<button type="button" class="btn btn-danger btn-sm" onclick="DashboardExecSql()">Run</button>
+			<button type="button" class="btn btn-primary btn-sm" onclick="DashboardResetSql()">Reset</button>
+
 		</div>
 	</div>
 

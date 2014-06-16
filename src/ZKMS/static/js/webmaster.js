@@ -99,6 +99,71 @@
    });
  }
 
+ function DashboardDbTruncate(range) {
+   if (!confirm("Are your sure?")) {
+     return;
+   }
+
+   var sqlstr = "";
+   if (range == "broker") {
+     sqlstr = "truncate `tb_broker`"
+     DashboardExecuteSql(sqlstr);
+     sqlstr = "truncate `tb_broker_stat`"
+     DashboardExecuteSql(sqlstr);
+     sqlstr = "truncate `tb_latest_broker_stat`"
+     DashboardExecuteSql(sqlstr);
+     return
+   } else if (range == "logger") {
+     sqlstr = "truncate `tb_logger`"
+     DashboardExecuteSql(sqlstr);
+     sqlstr = "truncate `tb_logger_stat`"
+     DashboardExecuteSql(sqlstr);
+     sqlstr = "truncate `tb_latest_logger_stat`"
+     DashboardExecuteSql(sqlstr);
+     return
+   } else if (range == "app") {
+     sqlstr = "truncate `tb_app`"
+   } else if (range == "topic") {
+     sqlstr = "truncate `tb_topic`"
+   } else if (range == "zone") {
+     sqlstr = "truncate `tb_zone`"
+   } else {
+     alert("error")
+     return
+   }
+
+   DashboardExecuteSql(sqlstr);
+ }
+
+ function DashboardExecSql() {
+   if (!confirm("Are your sure?")) {
+     return;
+   }
+
+   var sqlstr = $('#sqlstr').val();
+   DashboardExecuteSql(sqlstr);
+ }
+
+ function DashboardExecuteSql(sqlstr) {
+   $.ajax({
+     type: 'POST',
+     url: '/webmaster/dashboard/ExecuteSql',
+     data: {
+       sqlstr: sqlstr
+     },
+     success: function(data) {
+       location.reload();
+     },
+     dataType: 'text'
+   });
+ }
+
+ function DashboardResetSql() {
+   $('#sqlstr').val("");
+ }
+
+
+
  /*----------------------------------
   * Settings scripts
   *----------------------------------*/

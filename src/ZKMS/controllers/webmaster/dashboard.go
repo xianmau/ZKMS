@@ -1,6 +1,7 @@
 package webmaster
 
 import (
+	"ZKMS/controllers/dbmaster"
 	"ZKMS/controllers/extractor"
 	"github.com/astaxie/beego"
 )
@@ -30,11 +31,25 @@ func (this *DashboardController) SetExtractor() {
 	if act == "run" {
 		if err := extractor.RunExtractor(); err != nil {
 			this.Ctx.WriteString(err.Error())
+			return
 		}
 	} else if act == "stop" {
 		if err := extractor.StopExtractor(); err != nil {
 			this.Ctx.WriteString(err.Error())
+			return
 		}
+	}
+	this.Ctx.WriteString("")
+}
+
+func (this *DashboardController) ExecuteSql() {
+	sqlstr := this.Input().Get("sqlstr")
+	if n, err := dbmaster.ExecuteSql(sqlstr); err != nil {
+		this.Ctx.WriteString(err.Error())
+		return
+	} else {
+		this.Ctx.WriteString(string(n))
+		return
 	}
 	this.Ctx.WriteString("")
 }
