@@ -1,7 +1,7 @@
 package datastructure
 
 import (
-	"sysutil"
+	"ZKMS/models/sysutil"
 )
 
 type BrokerInfo struct {
