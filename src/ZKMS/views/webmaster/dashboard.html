@@ -24,11 +24,10 @@
 	<div class="dashboarditem">
 		<p class="title">Extractor Info</p>
 		<div class="info">
-			<p>Status: Running</p>
+			<p>Status: <span style="color:red;">{{.ExtractorStatus}}</span></p>
 
-			<button class="btn btn-primary" type="button" onclick="Start()">Start</button>
-			<button class="btn btn-primary" type="button" onclick="Stop()">Stop</button>
-			<button class="btn btn-primary" type="button" onclick="Retart()">Restart</button>
+			<button class="btn btn-primary" type="button" onclick="DashboardExtractorRun()">Run</button>
+			<button class="btn btn-primary" type="button" onclick="DashboardExtractorStop()">Stop</button>
 		</div>
 	</div>
 

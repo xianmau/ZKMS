@@ -64,6 +64,41 @@
      }
    }
  }
+
+ /*----------------------------------
+  * Dashboard scripts
+  *----------------------------------*/
+ function DashboardExtractorRun() {
+   $.ajax({
+     type: 'POST',
+     url: '/webmaster/dashboard/SetExtractor',
+     data: {
+       act: 'run'
+     },
+     success: function(data) {
+       location.reload();
+     },
+     dataType: 'text'
+   });
+ }
+
+ function DashboardExtractorStop() {
+   if (!confirm("Are your sure?")) {
+     return;
+   }
+   $.ajax({
+     type: 'POST',
+     url: '/webmaster/dashboard/SetExtractor',
+     data: {
+       act: 'stop'
+     },
+     success: function(data) {
+       location.reload();
+     },
+     dataType: 'text'
+   });
+ }
+
  /*----------------------------------
   * Settings scripts
   *----------------------------------*/
@@ -216,7 +251,6 @@
 
  }
 
- // TODO
  function ZonesCreateNode() {
    var curZone = $('#cur_zone').val();
    var path = $('#zktree_forms_create_path').val();
@@ -249,7 +283,6 @@
    $('#zktree_forms_update_path').val(curNode)
  }
 
- // TODO
  function ZonesUpdateNode() {
    var curZone = $('#cur_zone').val();
    var path = $('#zktree_forms_update_path').val();

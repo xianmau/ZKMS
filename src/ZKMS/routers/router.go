@@ -10,6 +10,7 @@ func init() {
 	beego.Router("/", &webmaster.DashboardController{})
 
 	beego.Router("/webmaster", &webmaster.DashboardController{})
+	beego.Router("/webmaster/dashboard/SetExtractor", &webmaster.DashboardController{}, "post:SetExtractor")
 
 	// 管理报表
 	beego.Router("/webmaster/reports", &webmaster.ReportsController{})
