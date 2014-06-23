@@ -15,17 +15,20 @@ type ReportsController struct {
 }
 
 func (this *ReportsController) Get() {
-	this.Data["IsLogin"] = true
-	this.Data["LoginName"] = "xianmau"
-	this.Data["Email"] = "xianmaulin@gmail.com"
+	admin := this.GetSession("admin")
+	this.Data["isLogin"] = admin != nil
+	this.Data["admin"] = admin
+
 	this.Layout = "webmaster/layout.tpl"
 	this.TplNames = "webmaster/reports.html"
 }
 
 // 显示某一个broker的详细性能数据
 func (this *ReportsController) BrokerDetail() {
-	this.Data["IsLogin"] = true
-	this.Data["LoginName"] = "xianmau"
+	admin := this.GetSession("admin")
+	this.Data["isLogin"] = admin != nil
+	this.Data["admin"] = admin
+
 	this.Layout = "webmaster/layout.tpl"
 	this.TplNames = "webmaster/brokerdetail.html"
 
@@ -145,8 +148,10 @@ func (this *ReportsController) GetLatestBrokerData() {
 
 // 显示某一个logger的详细性能数据
 func (this *ReportsController) LoggerDetail() {
-	this.Data["IsLogin"] = true
-	this.Data["LoginName"] = "xianmau"
+	admin := this.GetSession("admin")
+	this.Data["isLogin"] = admin != nil
+	this.Data["admin"] = admin
+
 	this.Layout = "webmaster/layout.tpl"
 	this.TplNames = "webmaster/loggerdetail.html"
 
@@ -265,8 +270,10 @@ func (this *ReportsController) GetLatestLoggerData() {
 }
 
 func (this *ReportsController) Brokers() {
-	this.Data["IsLogin"] = true
-	this.Data["LoginName"] = "xianmau"
+	admin := this.GetSession("admin")
+	this.Data["isLogin"] = admin != nil
+	this.Data["admin"] = admin
+
 	this.Layout = "webmaster/layout.tpl"
 	this.TplNames = "webmaster/brokers.html"
 
@@ -327,8 +334,10 @@ func (this *ReportsController) Brokers() {
 }
 
 func (this *ReportsController) Loggers() {
-	this.Data["IsLogin"] = true
-	this.Data["LoginName"] = "xianmau"
+	admin := this.GetSession("admin")
+	this.Data["isLogin"] = admin != nil
+	this.Data["admin"] = admin
+
 	this.Layout = "webmaster/layout.tpl"
 	this.TplNames = "webmaster/loggers.html"
 
@@ -392,8 +401,10 @@ func (this *ReportsController) Loggers() {
 }
 
 func (this *ReportsController) Apps() {
-	this.Data["IsLogin"] = true
-	this.Data["LoginName"] = "xianmau"
+	admin := this.GetSession("admin")
+	this.Data["isLogin"] = admin != nil
+	this.Data["admin"] = admin
+
 	this.Layout = "webmaster/layout.tpl"
 	this.TplNames = "webmaster/apps.html"
 
@@ -446,8 +457,10 @@ func (this *ReportsController) Apps() {
 }
 
 func (this *ReportsController) Topics() {
-	this.Data["IsLogin"] = true
-	this.Data["LoginName"] = "xianmau"
+	admin := this.GetSession("admin")
+	this.Data["isLogin"] = admin != nil
+	this.Data["admin"] = admin
+
 	this.Layout = "webmaster/layout.tpl"
 	this.TplNames = "webmaster/topics.html"
 

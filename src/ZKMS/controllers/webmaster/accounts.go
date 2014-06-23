@@ -12,8 +12,10 @@ type AccountsController struct {
 }
 
 func (this *AccountsController) Get() {
-	this.Data["IsLogin"] = true
-	this.Data["LoginName"] = "xianmau"
+	admin := this.GetSession("admin")
+	this.Data["isLogin"] = admin != nil
+	this.Data["admin"] = admin
+
 	this.Layout = "webmaster/layout.tpl"
 	this.TplNames = "webmaster/accounts.html"
 

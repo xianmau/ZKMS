@@ -11,9 +11,10 @@ type DashboardController struct {
 }
 
 func (this *DashboardController) Get() {
-	this.Data["IsLogin"] = true
-	this.Data["LoginName"] = "xianmau"
-	this.Data["Email"] = "xianmaulin@gmail.com"
+	admin := this.GetSession("admin")
+	this.Data["isLogin"] = admin != nil
+	this.Data["admin"] = admin
+
 	this.Layout = "webmaster/layout.tpl"
 	this.TplNames = "webmaster/dashboard.html"
 

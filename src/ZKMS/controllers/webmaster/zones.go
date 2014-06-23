@@ -17,8 +17,10 @@ type ZonesController struct {
 }
 
 func (this *ZonesController) Get() {
-	this.Data["IsLogin"] = true
-	this.Data["LoginName"] = "xianmau"
+	admin := this.GetSession("admin")
+	this.Data["isLogin"] = admin != nil
+	this.Data["admin"] = admin
+
 	this.Layout = "webmaster/layout.tpl"
 	this.TplNames = "webmaster/zones.html"
 
@@ -68,8 +70,10 @@ func (this *ZonesController) Get() {
 }
 
 func (this *ZonesController) ZkTree() {
-	this.Data["IsLogin"] = true
-	this.Data["LoginName"] = "xianmau"
+	admin := this.GetSession("admin")
+	this.Data["isLogin"] = admin != nil
+	this.Data["admin"] = admin
+
 	this.Layout = "webmaster/layout.tpl"
 	this.TplNames = "webmaster/zktree.html"
 

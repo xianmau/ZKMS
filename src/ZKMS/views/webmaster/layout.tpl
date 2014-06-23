@@ -15,13 +15,14 @@
   <body style="overflow-y:auto;overflow-x:hidden;">
     <div id="leftside">
       <div id="logo"></div>
-      {{if .IsLogin}}
+      {{if .isLogin}}
+        <input id="account_email" type="hidden" value="{{.admin.Remark}}" />
         <span class="login-stat">
-          <a>Hi, {{.LoginName}}! </a>
-          <a href="#">&lt;Exit&gt;</a>
+          <a>Hi, {{.admin.Name}}! </a>
+          <a href="/webmaster/logout">&lt;Exit&gt;</a>
         </span>
       {{else}}
-        <span class="login-stat"><a href="/login">Log on</a></span>
+        <span class="login-stat"><a href="/webmaster/login">Log on</a></span>
       {{end}}
       <ul class="nav">
         <li><a href="/webmaster" class="">Dashboard</a></li>

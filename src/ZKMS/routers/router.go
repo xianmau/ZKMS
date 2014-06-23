@@ -1,7 +1,6 @@
 package routers
 
 import (
-	//"ZKMS/controllers"
 	"ZKMS/controllers/webmaster"
 	"github.com/astaxie/beego"
 )
@@ -9,6 +8,11 @@ import (
 func init() {
 	beego.Router("/", &webmaster.DashboardController{})
 
+	// 登录
+	beego.Router("/webmaster/login", &webmaster.LoginController{})
+	beego.Router("/webmaster/logout", &webmaster.LoginController{}, "get:Logout")
+
+	// 仪表盘
 	beego.Router("/webmaster", &webmaster.DashboardController{})
 	beego.Router("/webmaster/dashboard/SetExtractor", &webmaster.DashboardController{}, "post:SetExtractor")
 	beego.Router("/webmaster/dashboard/ExecuteSql", &webmaster.DashboardController{}, "post:ExecuteSql")
