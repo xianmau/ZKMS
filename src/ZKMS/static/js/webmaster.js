@@ -156,21 +156,21 @@
      DashboardExecuteSql(sqlstr);
      return
    } else if (range == "1") {
-     sqlstr = "delete from `tb_logger_stat` where date_sub(curdate(), INTERVAL 1 DAY) > date(`Timestamp`)"
+     sqlstr = "delete from `tb_logger_stat` where date(`Timestamp`) <= date_sub(curdate(), INTERVAL 1 DAY)"
      DashboardExecuteSql(sqlstr);
-     sqlstr = "delete from `tb_broker_stat` where date_sub(curdate(), INTERVAL 1 DAY) > date(`Timestamp`)"
+     sqlstr = "delete from `tb_logger_stat` where date(`Timestamp`) <= date_sub(curdate(), INTERVAL 1 DAY)"
      DashboardExecuteSql(sqlstr);
      return
    } else if (range == "7") {
-     sqlstr = "delete from `tb_logger_stat` where date_sub(curdate(), INTERVAL 7 DAY) > date(`Timestamp`)"
+     sqlstr = "delete from `tb_logger_stat` where date(`Timestamp`) <= date_sub(curdate(), INTERVAL 7 DAY)"
      DashboardExecuteSql(sqlstr);
-     sqlstr = "delete from `tb_broker_stat` where date_sub(curdate(), INTERVAL 7 DAY) > date(`Timestamp`)"
+     sqlstr = "delete from `tb_logger_stat` where date(`Timestamp`) <= date_sub(curdate(), INTERVAL 7 DAY)"
      DashboardExecuteSql(sqlstr);
      return
    } else if (range == "15") {
-     sqlstr = "delete from `tb_logger_stat` where date_sub(curdate(), INTERVAL 15 DAY) > date(`Timestamp`)"
+     sqlstr = "delete from `tb_logger_stat` where date(`Timestamp`) <= date_sub(curdate(), INTERVAL 15 DAY)"
      DashboardExecuteSql(sqlstr);
-     sqlstr = "delete from `tb_broker_stat` where date_sub(curdate(), INTERVAL 15 DAY) > date(`Timestamp`)"
+     sqlstr = "delete from `tb_logger_stat` where date(`Timestamp`) <= date_sub(curdate(), INTERVAL 15 DAY)"
      DashboardExecuteSql(sqlstr);
      return
    } else {
