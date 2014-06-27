@@ -370,10 +370,8 @@ func (this *ReportsController) Loggers() {
 		zoneid = zonelist[0].Id
 	}
 
-	t1 := time.Now()
 	rows, _ = db.Query("select A.`Id`,A.`Addr`,A.`BlkDev`,A.`Status`,B.`Cpu`,B.`Net`,B.`Disk` from `tb_logger` as A left join `tb_latest_logger_stat` as B on A.`Id`=B.`LoggerId` and A.`ZoneId`=B.`ZoneId` and (B.`Timestamp`>=now() - interval 1 minute) where A.`ZoneId`=?", zoneid)
-	t2 := time.Now()
-	log.Printf("Load data from [%s] using %v\n", "broker", t2.Sub(t1))
+
 	for rows.Next() {
 		tmp := models.LoggerModel{}
 		var Cpu sql.NullString
