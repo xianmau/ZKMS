@@ -41,6 +41,12 @@
 			<button class="btn btn-warning" type="button" onclick="DashboardDbTruncate('app')">App Table</button>
 			<button class="btn btn-warning" type="button" onclick="DashboardDbTruncate('topic')">Topic Table</button>
 			<button class="btn btn-warning" type="button" onclick="DashboardDbTruncate('zone')">Zone Table</button>
+
+			<h5>Delete History Data</h5>
+			<button class="btn btn-danger" type="button" onclick="DashboardDbDeleteHistory('all')">All</button>
+			<button class="btn btn-warning" type="button" onclick="DashboardDbDeleteHistory('7')">7 Days Ago</button>
+			<button class="btn btn-warning" type="button" onclick="DashboardDbDeleteHistory('15')">15 Days Ago</button>
+			
 			<h5>Execute SQL</h5>
 
 			<textarea id="sqlstr" class="form-control" name="sql" placeholder="Sql Statement" ></textarea>

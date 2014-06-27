@@ -143,6 +143,38 @@
    DashboardExecuteSql(sqlstr);
  }
 
+function DashboardDbDeleteHistory(range) {
+   if (!confirm("Are your sure?")) {
+     return;
+   }
+
+   var sqlstr = "";
+   if (range == "all") {
+     sqlstr = "truncate `tb_broker_stat`"
+     DashboardExecuteSql(sqlstr);
+     sqlstr = "truncate `tb_logger_stat`"
+     DashboardExecuteSql(sqlstr);
+     return
+   } else if (range == "7") {
+     sqlstr = "delete from `tb_logger_stat` where date_sub(curdate(), INTERVAL 7 DAY) <= date(`Timestamp`)"
+     DashboardExecuteSql(sqlstr);
+     sqlstr = "delete from `tb_broker_stat` where date_sub(curdate(), INTERVAL 7 DAY) <= date(`Timestamp`)"
+     DashboardExecuteSql(sqlstr);
+     return
+   } else if (range == "15") {
+     sqlstr = "delete from `tb_logger_stat` where date_sub(curdate(), INTERVAL 15 DAY) <= date(`Timestamp`)"
+     DashboardExecuteSql(sqlstr);
+     sqlstr = "delete from `tb_broker_stat` where date_sub(curdate(), INTERVAL 15 DAY) <= date(`Timestamp`)"
+     DashboardExecuteSql(sqlstr);
+     return
+   } else {
+     alert("error")
+     return
+   }
+
+   DashboardExecuteSql(sqlstr);
+ }
+
  function DashboardExecSql() {
    if (!confirm("Are your sure?")) {
      return;
